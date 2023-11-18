@@ -1,0 +1,30 @@
+name: gitleaks
+on:
+  pull_request: {}
+  push:
+    branches: [master, v3.dev]
+permissions: read-all
+
+env:
+  ALLOWED_ENDPOINTS: >
+    api.github.com:443
+    github.com:443
+    objects.githubusercontent.com:443
+
+jobs:
+  scan:
+    name: gitleaks
+    runs-on: ubuntu-latest
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@eb238b55efaa70779f274895e782ed17c84f2895 # v2.6.1
+        with:
+          disable-sudo: true
+          egress-policy: block
+          allowed-endpoints: ${{ env.ALLOWED_ENDPOINTS }}
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
