@@ -35,7 +35,7 @@ import com.google.errorprone.annotations.Immutable;
  *     <li>After successfully loading an entry {@code missCount} and {@code loadSuccessCount} are
  *         incremented, and the total loading time, in nanoseconds, is added to
  *         {@code totalLoadTime}.
- *     <li>When an exception is thrown while loading an entry or if the loaded value is {code null},
+ *     <li>When an exception is thrown while loading an entry or if the loaded value is {@code null},
  *         {@code missCount} and {@code loadFailureCount} are incremented, and the total loading
  *         time, in nanoseconds, is added to {@code totalLoadTime}.
  *     <li>Cache lookups that encounter a missing cache entry that is still loading will wait
